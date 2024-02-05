@@ -4,7 +4,7 @@ import {pool} from "../db.cjs";
 
 export const getTasks = async (_, res) => {
     try {
-        const result = await pool.query("select * from tasks where status not in ('Finished', 'Deleted') order by created_at desc");
+        const result = await pool.query("select * from tasks where status not in ('Finished', 'Deleted') order by priority,status,created_at desc");
 
         return res.status(200).json(result.rows);
     } catch (error) {
