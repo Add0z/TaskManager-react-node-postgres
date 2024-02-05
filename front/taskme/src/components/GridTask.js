@@ -7,6 +7,7 @@ import {FaTicket} from "react-icons/fa6";
 import Dropdown from "react-dropdown";
 import {TbRadar2} from "react-icons/tb";
 
+
 const Table = styled.table`
     width: 1300px;
     background-color: #fff;
@@ -56,7 +57,7 @@ export const Td = styled.td`
 
 
 
-const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
+const GridTask = ({ task, setTask, setTaskOnEdit, taskClosed, setTaskClosed,getTasksClosed}) => {
 
 
     const [AvailableDefaultOptionSupport] = 'Support';
@@ -66,29 +67,16 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
     const [options, setOptions] = useState([]);
 
             const noRepeatMembers = async (item, taskId, updateField) => {
-
-                if (item["Support 1"].value === null){
-                    item["Support 1"].value = "Support nulo"
-                }
-                if (item["Trainee"].value === null){
-                    item["Trainee"].value = "Trainee nulo"
-                }
-                if (item["Task Lead"].value === null){
-                    item["Task Lead"].value = "Task Lead nulo"
-                }
-
-                console.log(item["Support 1"])
-                console.log(updateField[updateField["update-field"]] !== item["Support 1"])
-
-                if (updateField[updateField["update-field"]] !== item["Support 1"] &&
+                if ((updateField[updateField["update-field"]] !== item["Support 1"] &&
                     updateField[updateField["update-field"]] !== item["Trainee"] &&
-                    updateField[updateField["update-field"]] !== item["Task Lead"] &&
-                    item["Support 1"] !== item["Trainee"] &&
-                    item["Support 1"] !== item["Task Lead"] &&
-                    item["Trainee"] !== item["Task Lead"]) {
+                    updateField[updateField["update-field"]] !== item["Task Lead"] )|| updateField[updateField["update-field"]] === null
+
+                ) {
                     await saveAfterDropdownChange(taskId, updateField);
                 } else {
                     toast.error("Repeat members are not allowed");
+                    console.log("item[updateField[update-field]]" +item[updateField["update-field"]])
+
                 }
             };
             const handleAvailableSupport = async (selectedOptionSupport, item) => {
@@ -158,7 +146,8 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
 
     useEffect(() => {
         fetchDropdownOptions();
-    }, []);
+        getTasksClosed(); // Call getTasksClosed when the component is updated with new tasks
+    }, [task, taskClosed]);
 
 
     const handleEdit = (item) => {
@@ -171,6 +160,8 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
             .then(({ data }) => {
                 const newArray = task.filter((task) => task["ID"] !== id);
                 setTask(newArray);
+                const newArray2 = taskClosed.filter((task) => task["ID"] !== id);
+                setTaskClosed(newArray2);
                 toast.success(data);
             })
             .catch(({ data }) => toast.error(data));
@@ -217,7 +208,7 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                      <Th width="8%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Task Lead</Th>
                      <Th width="8%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Support</Th>
                      <Th width="8%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Trainee</Th>
-                     <Th width="12%" style={{ marginLeft: "30px", paddingLeft: "15px" }}>Status</Th>
+                     <Th width="10%" style={{ marginLeft: "30px", paddingLeft: "15px" }}>Status</Th>
                  </Tr>
              </Thead>
              <Tbody>
@@ -234,8 +225,8 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                                  {item.description}
                              </Td>
                              <Td>{item.priority}</Td>
-                             <Td>
-                                 {new Date(item.due_date).toLocaleDateString('en-GB')}
+                             <Td width="8%">{new Date(item.due_date).toLocaleDateString('en-US', {timeZone: 'UTC'})
+                             }
                              </Td>
                              <Td style={{ verticalAlign: "middle" }}>
                                  <StyledDropdown
@@ -265,13 +256,13 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                                  />
                              </Td>
                              <Td style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0, paddingLeft: "20px" }}>{item.status}</Td>
-                             <Td alignCenter width="3%">
+                             <Td alignCenter width="4%">
                                  <FaEdit onClick={() => handleEdit(item)} />
                              </Td>
-                             <Td alignCenter width="3%">
+                             <Td alignCenter width="4%">
                                  <FaTrash onClick={() => handleDelete(item["ID"])} />
                              </Td>
-                             <Td alignCenter width="3%">
+                             <Td alignCenter width="4%">
                                  <FaCheck onClick={() => handleFinish(item["ID"])} />
                              </Td>
                          </Tr>

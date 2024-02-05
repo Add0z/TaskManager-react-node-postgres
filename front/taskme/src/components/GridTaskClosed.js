@@ -43,36 +43,34 @@ export const Td = styled.td`
 `;
 
 const GridTaskClosed = ({ taskClosed, setTaskClosed, setClosedOnEdit ,taskOnEdit}) => {
-    // console.log("setTaskClosed "  + setTaskClosed)
-    // console.log("taskClosed " + taskClosed);
-    // console.log("setClosedOnEdit " + setClosedOnEdit);
-    const handleEdit = (item) => {
-        setClosedOnEdit(item);
-    };
 
-    const handleFinish = async (id) => {
-        try {
-            await axios.put("http://localhost:8800/t" + id, { status: "Finished" });
-            toast.success("Status updated successfully");
-        } catch (error) {
-            toast.error("Error updating status");
-        }
-    };
-
-
-    const handleDelete = async (id) => {
-        await axios
-            .delete("http://localhost:8800/t" + id)
-            .then(({ data }) => {
-                const newArray = taskClosed.filter((task) => task.id !== id);
-
-                setTaskClosed(newArray);
-                toast.success(data);
-            })
-            .catch(({ data }) => toast.error(data));
-
-        setClosedOnEdit(null);
-    };
+    // const handleEdit = (item) => {
+    //     setClosedOnEdit(item);
+    // };
+    //
+    // const handleFinish = async (id) => {
+    //     try {
+    //         await axios.put("http://localhost:8800/t" + id, { status: "Finished" });
+    //         toast.success("Status updated successfully");
+    //     } catch (error) {
+    //         toast.error("Error updating status");
+    //     }
+    // };
+    //
+    //
+    // const handleDelete = async (id) => {
+    //     await axios
+    //         .delete("http://localhost:8800/t" + id)
+    //         .then(({ data }) => {
+    //             const newArray = taskClosed.filter((task) => task.id !== id);
+    //
+    //             setTaskClosed(newArray);
+    //             toast.success(data);
+    //         })
+    //         .catch(({ data }) => toast.error(data));
+    //
+    //     setClosedOnEdit(null);
+    // };
 
 
     return (

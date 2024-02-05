@@ -84,8 +84,8 @@ function App() {
                     <div className="div1"><Title>TaskMe!</Title></div>
                     <div className="div2">
                         <div className="Cima">
-                            <FormTask taskOnEdit={taskOnEdit} setTaskOnEdit={setTaskOnEdit} getTasks={getTasks}/>
-                            <GridTask setTaskOnEdit={setTaskOnEdit} task={task} setTask={setTask}/>
+                            <FormTask taskOnEdit={taskOnEdit} setTaskOnEdit={setTaskOnEdit} getTasks={getTasks} taskClosed={taskClosed} setTaskClosed={setTaskClosed} getTasksClosed={getTasksClosed}/>
+                            <GridTask setTaskOnEdit={setTaskOnEdit} task={task} setTask={setTask} taskClosed={taskClosed} setTaskClosed={setTaskClosed} getTasksClosed={getTasksClosed}/>
                         </div>
                     </div>
                     <div className="div3"><BaixoDireita>

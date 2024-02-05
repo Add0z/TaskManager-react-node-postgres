@@ -24,7 +24,7 @@ const InputArea = styled.div`
 `;
 
 const DescriptionInput = styled.input`
-    width: 650px;
+    width: 620px;
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 5px;
@@ -73,11 +73,16 @@ const FormTask = ({ taskOnEdit, setTaskOnEdit, getTasks }) => {
             task.priority = taskOnEdit.priority;
             task["Status"] = taskOnEdit["Status"];
             task.created_at = taskOnEdit.created_at;
+
+            setPriorityDefaultOption(taskOnEdit.priority);
+            setStatusDefaultOption(taskOnEdit.status);
+
+
         }
     }, [taskOnEdit]);
 
-    const [priorityDefaultOption, setPriorityDefaultOption] = useState('Low');
-    const [statusDefaultOption, setStatusDefaultOption] = useState('Open');
+    const [priorityDefaultOption, setPriorityDefaultOption] = useState("Priority");
+    const [statusDefaultOption, setStatusDefaultOption] = useState("Status");
 
     const handlePrioritySelect = (selectedOption) => {
         setPriorityDefaultOption(selectedOption);
@@ -95,7 +100,7 @@ const FormTask = ({ taskOnEdit, setTaskOnEdit, getTasks }) => {
             !task.title.value ||
             !task.description.value ||
             !task.due_date.value ||
-            !statusDefaultOption ||
+            !statusDefaultOption.value ||
             !priorityDefaultOption.value
         ) {
 
@@ -103,13 +108,30 @@ const FormTask = ({ taskOnEdit, setTaskOnEdit, getTasks }) => {
         }
 
         if (taskOnEdit) {
-                await axios
-                .put("http://localhost:8800/t" + taskOnEdit["ID"], {
-                    title: task.title.value,
-                    description: task.description.value,
-                    due_date: task.due_date.value,
+            console.log("taskOnEdit.title.value " +taskOnEdit.title)
+            console.log("taskOnEdit.description.value "  + taskOnEdit.description)
+            console.log("taskOnEdit.due_date.value "  + taskOnEdit.due_date)
+            console.log(priorityDefaultOption.value)
+            console.log(statusDefaultOption.value)
+            var data = [
+                {
+                    title: taskOnEdit.title,
+                    description: taskOnEdit.description,
+                    due_date: taskOnEdit.due_date,
                     priority: priorityDefaultOption.value,
-                    "status": statusDefaultOption
+                    "status": statusDefaultOption.value
+                }
+            ]
+            console.log(data)
+            console.log( taskOnEdit["ID"])
+
+            await axios
+                .put("http://localhost:8800/t" + taskOnEdit["ID"], {
+                    title: taskOnEdit.title,
+                    description: taskOnEdit.description,
+                    due_date: taskOnEdit.due_date,
+                    priority: priorityDefaultOption.value,
+                    "status": statusDefaultOption.value
                 })
                 .then(({ data }) => toast.success(data))
                 .catch(({ data }) => toast.error(data));
