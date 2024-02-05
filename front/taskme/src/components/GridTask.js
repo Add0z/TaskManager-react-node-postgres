@@ -211,12 +211,14 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
          <Table>
              <Thead>
                  <Tr>
-                     <Th width="15%" title={'Title'} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Title</Th>
-                     <Th width="30%" onlyWeb style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Description</Th>
-                     <Th width="8%" title={'Priority'} alignCenter={"right"} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Priority</Th>
-                     <Th width="12%" style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Due Date</Th>
-                     <Th width="13%" style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Task Lead   --- Support    ---  Trainee</Th>
-                     <Th width="13%" style={{ marginLeft: "30px", paddingLeft: "15px" }} >Status</Th>
+                     <Th width="15%" title={'Title'} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Title</Th>
+                     <Th width="30%" onlyWeb style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Description</Th>
+                     <Th width="8%" title={'Priority'} alignCenter={"right"} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Priority</Th>
+                     <Th width="10%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Due Date</Th>
+                     <Th width="8%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Task Lead</Th>
+                     <Th width="8%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Support</Th>
+                     <Th width="8%" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0 }}>Trainee</Th>
+                     <Th width="12%" style={{ marginLeft: "30px", paddingLeft: "15px" }}>Status</Th>
                  </Tr>
              </Thead>
              <Tbody>
@@ -228,7 +230,7 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
 
                      return (
                          <Tr key={i}>
-                             <Td >{item.title}</Td>
+                             <Td>{item.title}</Td>
                              <Td onlyWeb>
                                  {item.description}
                              </Td>
@@ -236,9 +238,7 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                              <Td>
                                  {new Date(item.due_date).toLocaleDateString('en-GB')}
                              </Td>
-                             <Td verticalAlign="bottom"  height="50px" width="100%"
-                                 colSpan="3" style={{display: 'flex'}}> {/* Use colSpan to span the full width of the three dropdowns */}
-                                 {/*<label style={{marginRight: '10px'}}>Available</label>*/}
+                             <Td style={{ verticalAlign: "middle" }}>
                                  <StyledDropdown
                                      options={Array.isArray(options) ? options : []}
                                      onChange={(selectedOptionLead) => handleAvailableLEAD(selectedOptionLead, item)}
@@ -246,6 +246,8 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                                      priority={initialLead}
                                      placeholder="Task Lead"
                                  />
+                             </Td>
+                             <Td style={{ verticalAlign: "middle" }}>
                                  <StyledDropdown
                                      options={Array.isArray(options) ? options : []}
                                      onChange={(selectedOptionSupport) => handleAvailableSupport(selectedOptionSupport, item)}
@@ -253,6 +255,8 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                                      priority={initialSupport}
                                      placeholder="Support"
                                  />
+                             </Td>
+                             <Td style={{ verticalAlign: "middle" }}>
                                  <StyledDropdown
                                      options={Array.isArray(options) ? options : []}
                                      onChange={(selectedOptionTrainee) => handleAvailableTRAINEE(selectedOptionTrainee, item)}
@@ -261,20 +265,17 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                                      placeholder="Trainee"
                                  />
                              </Td>
-                             <Td  style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0, paddingLeft: "20px" }}>{item.status}</Td>
-
-                             <Td alignCenter width="2%">
+                             <Td style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0, paddingLeft: "20px" }}>{item.status}</Td>
+                             <Td alignCenter width="3%">
                                  <FaEdit onClick={() => handleEdit(item)} />
                              </Td>
-                             <Td alignCenter width="2%">
-                                 <FaTrash onClick={() =>  handleDelete(item["ID"])} />
+                             <Td alignCenter width="3%">
+                                 <FaTrash onClick={() => handleDelete(item["ID"])} />
                              </Td>
-                             <Td alignCenter width="2%">
+                             <Td alignCenter width="3%">
                                  <FaCheck onClick={() => handleFinish(item["ID"])} />
                              </Td>
-
                          </Tr>
-
                      );
                  })}
              </Tbody>
