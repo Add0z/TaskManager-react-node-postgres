@@ -1,29 +1,10 @@
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 1', 'Description for Task 1', '2024-03-01', 'Andre', 'Ailton', 'Gabriel', 'High', 'In Progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 2', 'Description for Task 2', '2024-03-15', 'Ariel', 'Ariel', 'Alberto', 'Medium', 'Not Started', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 3', 'Description for Task 3', '2024-04-01', 'Alice', 'Ailton', 'Alberto', 'High', 'In Progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 4', 'Description for Task 4', '2024-04-15', 'Alberto', 'Ailton', 'Alice', 'Medium', 'Not Started', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 5', 'Description for Task 5', '2024-05-01', 'Ailton', 'Alice', 'Alberto', 'Low', 'Completed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 6', 'Description for Task 6', '2024-05-15', 'Alice', 'Ailton', 'Alberto', 'High', 'In Progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "Task Lead", "Support 1", "Trainee", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 7', 'Description for Task 7', '2024-06-01', 'Alberto', 'Ailton', 'Alice', 'Medium', 'Not Started', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 8', 'Description for Task 8', '2024-06-15', 'High', 'In Progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 9', 'Description for Task 9', '2024-07-01', 'Medium', 'Not Started', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO tasks ("title", "description", "due_date", "priority", "status", "created_at", "updated_at")
-VALUES ('Task 10', 'Description for Task 10', '2024-07-15', 'Low', 'Completed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (33, 'Task 1', 'Description for Task 1', '2024-03-01', 'Andre', 'Ailton', 'Gabriel', 'High', 'In Progress', '2024-02-05 14:23:45.804481', '2024-02-05 14:23:45.804481');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (36, 'Task 4', 'Description for Task 4', '2024-04-15', 'Alberto', 'Ailton', 'Alice', 'Medium', 'Finished', '2024-02-05 14:23:45.871914', '2024-02-05 00:04:19.599000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (35, 'Task 3', 'Description for Task 3', '2024-04-01', 'Alice', 'Ailton', 'Alberto', 'High', 'Finished', '2024-02-05 14:23:45.858485', '2024-02-05 00:04:24.559000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (37, 'Task 5', 'Description for Task 5', '2024-05-01', 'Ailton', 'Alice', 'Alberto', 'Low', 'Finished', '2024-02-05 14:23:45.882003', '2024-02-05 14:23:45.882003');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (39, 'Task 7', 'Description for Task 7', '2024-06-01', 'Alice', null, 'Alice', 'Medium', 'Not Started', '2024-02-05 14:23:45.902062', '2024-02-05 00:00:46.585000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (38, 'Task 6', 'Description for Task 6', '2024-05-15', 'Alice', 'Ailton', 'Alberto', 'High', 'Finished', '2024-02-05 14:23:45.892869', '2024-02-11 00:04:21.043000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (34, 'Task 2', 'Description for Task 2', '2024-03-15', null, null, 'Alberto', 'Medium', 'Open', '2024-02-05 14:23:45.850171', '2024-02-05 00:04:39.499000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (40, 'Task 8', 'Description for Task 8', '2024-06-15', 'Alberto', 'Ariel', 'Gabriel', 'High', 'In Progress', '2024-02-05 14:23:45.913790', '2024-02-05 00:02:52.087000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (42, 'Task 10', 'Description for Task 10', '2024-07-15', 'Alberto', 'Andre', 'Ariel', 'Low', 'Open', '2024-02-05 14:23:45.931563', '2024-02-05 00:04:30.220000');
+INSERT INTO public.tasks ("ID", title, description, due_date, "Task Lead", "Support 1", "Trainee", priority, status, created_at, updated_at) VALUES (41, 'Task 9', 'Description for Task 9', '2024-07-01', 'Gabriel', 'Alberto', 'Ariel', 'Medium', 'On Hold', '2024-02-05 14:23:45.922437', '2024-02-05 00:03:06.536000');
