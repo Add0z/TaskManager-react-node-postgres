@@ -11,8 +11,8 @@ import axios from "axios";
 import GridTaskClosed from "./components/GridTaskClosed";
 
 const Container = styled.div`
-    width: 1400px;
-    max-width: 1400px;
+    width: 50000px;
+    max-width: 50000px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -22,12 +22,7 @@ const Container = styled.div`
 
 const Title = styled.h2``;
 
-const Baixo = styled.div`
-    width: 900px;
-    display: flex;
-    gap: 10px;
-    
-`;
+
 
 const BaixoDireita = styled.div`
     flex: 1; /* Take up remaining space */

@@ -8,7 +8,7 @@ import Dropdown from "react-dropdown";
 import {TbRadar2} from "react-icons/tb";
 
 const Table = styled.table`
-    width: 100%;
+    width: 1300px;
     background-color: #fff;
     padding: 10px;
     box-shadow: 0px 0px 5px #ccc;
@@ -160,85 +160,82 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
 
     }
 
+    // TODO: check for more than 3 tasks in one name
+
     return (
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th>Title</Th>
-                    <Th onlyWeb>Description</Th>
-                    <Th alignCenter={"right"}>Priority</Th>
-                    <Th>Due Date</Th>
-                    <Th></Th>
+     <>
+         <Table>
+             <Thead>
+                 <Tr>
+                     <Th width="15%" title={'Title'} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Title</Th>
+                     <Th width="30%" onlyWeb style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Description</Th>
+                     <Th width="10%" title={'Priority'} alignCenter={"right"} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Priority</Th>
+                     <Th width="12%" style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Due Date</Th>
+                     <Th width="13%" style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Task Lead   --- Support    ---  Trainee</Th>
+                     <Th width="8%" style={{ marginLeft: "30px", paddingLeft: "15px" }} >Status</Th>
+                 </Tr>
+             </Thead>
+             <Tbody>
+                 {task && task.map((item, i) => {
+                     // Perform your logic here to set initial states based on item
+                     const initialSupport = nomeInicial(item["Support 1"]);
+                     const initialTrainee = nomeInicial(item["Trainee"]);
+                     const initialLead = nomeInicial(item["Task Lead"]);
 
-                    <Th>Status</Th>
-                    <Th></Th>
-                    <Th></Th>
-                    <Th></Th>
+                     return (
+                         <Tr key={i}>
+                             <Td >{item.title}</Td>
+                             <Td onlyWeb>
+                                 {item.description}
+                             </Td>
+                             <Td>{item.priority}</Td>
+                             <Td>
+                                 {new Date(item.due_date).toLocaleDateString('en-GB')}
+                             </Td>
+                             <Td verticalAlign="bottom"  height="50px" width="100%"
+                                 colSpan="3" style={{display: 'flex'}}> {/* Use colSpan to span the full width of the three dropdowns */}
+                                 {/*<label style={{marginRight: '10px'}}>Available</label>*/}
+                                 <StyledDropdown
+                                     options={Array.isArray(options) ? options : []}
+                                     onChange={(selectedOption) => handleAvailableLEAD(selectedOption, item["ID"])}
+                                     value={initialLead ? initialLead : null}
+                                     priority={initialLead}
+                                     placeholder="Task Lead"
+                                 />
+                                 <StyledDropdown
+                                     options={Array.isArray(options) ? options : []}
+                                     onChange={(selectedOption) => handleAvailableSupport(selectedOption, item["ID"])}
+                                     value={initialSupport ? initialSupport : null}
+                                     priority={initialSupport}
+                                     placeholder="Support"
+                                 />
+                                 <StyledDropdown
+                                     options={Array.isArray(options) ? options : []}
+                                     onChange={(selectedOption) => handleAvailableTRAINEE(selectedOption, item["ID"])}
+                                     value={initialTrainee ? initialTrainee : null}
+                                     priority={initialTrainee}
+                                     placeholder="Trainee"
+                                 />
+                             </Td>
+                             <Td width="8%" style={{ paddingLeft: "20px" }}>{item.status}</Td>
 
-                    <Th></Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {task && task.map((item, i) => {
-                    // Perform your logic here to set initial states based on item
-                    const initialSupport = nomeInicial(item["Support 1"]);
-                    const initialTrainee = nomeInicial(item["Trainee"]);
-                    const initialLead = nomeInicial(item["Task Lead"]);
+                             <Td alignCenter width="5%">
+                                 <FaEdit onClick={() => handleEdit(item)} />
+                             </Td>
+                             <Td alignCenter width="5%">
+                                 <FaTrash onClick={() =>  handleDelete(item["ID"])} />
+                             </Td>
+                             <Td alignCenter width="5%">
+                                 <FaCheck onClick={() => handleFinish(item["ID"])} />
+                             </Td>
 
-                    return (
-                        <Tr key={i}>
-                        <Td width="8.9%">{item.title}</Td>
-                        <Td width="15%" onlyWeb>
-                            {item.description}
-                        </Td>
-                        <Td width="8%">{item.priority}</Td>
-                        <Td width="11%">
-                            {new Date(item.due_date).toLocaleDateString('en-GB')}
-                        </Td>
+                         </Tr>
 
-                            <Td width="8%">{item.status}</Td>
-
-                            <Td alignCenter width="5%">
-                            <FaEdit onClick={() => handleEdit(item)} />
-                        </Td>
-                        <Td alignCenter width="5%">
-                            <FaTrash onClick={() =>  handleDelete(item["ID"])} />
-                        </Td>
-                        <Td alignCenter width="5%">
-                            <FaCheck onClick={() => handleFinish(item["ID"])} />
-                        </Td>
-                            <Td vertical-Align="bottom" height= "50px" width="100%" colSpan="3"> {/* Use colSpan to span the full width of the three dropdowns */}
-                                    {/*<label style={{marginRight: '10px'}}>Available</label>*/}
-                                    <StyledDropdown
-                                        options={Array.isArray(options) ? options : []}
-                                        onChange={(selectedOption) => handleAvailableLEAD(selectedOption, item["ID"])}
-                                        value={initialLead ? initialLead : null}
-                                        priority={initialLead}
-                                        placeholder="Task Lead"
-                                    />
-                                    {/*<label style={{marginRight: '10px'}}>Available</label>*/}
-                                    <StyledDropdown
-                                        options={Array.isArray(options) ? options : []}
-                                        onChange={(selectedOption) => handleAvailableSupport(selectedOption, item["ID"])}
-                                        value={initialSupport ? initialSupport : null}
-                                        priority={initialSupport}
-                                        placeholder="Support"
-                                    />
-                                    {/*<label style={{marginRight: '10px'}}>Available</label>*/}
-                                    <StyledDropdown
-                                        options={Array.isArray(options) ? options : []}
-                                        onChange={(selectedOption) => handleAvailableTRAINEE(selectedOption, item["ID"])}
-                                        value={initialTrainee ? initialTrainee : null}
-                                        priority={initialTrainee}
-                                        placeholder="Trainee"
-                                    />
-                            </Td>
-                        </Tr>
-
-                    );
-                })}
-            </Tbody>
-        </Table>
+                     );
+                 })}
+             </Tbody>
+         </Table>
+         </>
     );
 };
 

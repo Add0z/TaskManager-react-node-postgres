@@ -1,0 +1,11 @@
+Missão: Faça uma aplicação para controle de tarefas e envie os links para os repositórios
+necessários, os quais devem conter o readme para levantar a(s) aplicação(ões).
+A aplicação deve listar as tarefas por ordem de prioridade e estado, além de permitir a inclusão
+de uma nova tarefa.
+Regras:
+* Uma tarefa pode ter diferentes níveis de prioridade (baixa, normal e alta).
+* Deve ser possível anexar uma pessoa a uma tarefa.
+* Uma pessoa pode estar contida em ter até 3 tarefas.
+* Deve ser possível alterar uma tarefa.
+* Deve ser possível remover uma tarefa.
+* Deve ser possível alterar o estado de uma tarefa (Pendente, Em andamento ou Concluída).

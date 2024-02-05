@@ -19,13 +19,12 @@ const FormContainer = styled.form`
 `;
 
 const InputArea = styled.div`
-    
     display: flex;
     flex-direction: column;
 `;
 
 const DescriptionInput = styled.input`
-    width: 350px;
+    width: 650px;
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 5px;
@@ -33,7 +32,7 @@ const DescriptionInput = styled.input`
 `;
 
 const Input = styled.input`
-    width: 120px;
+    width: 150px;
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 5px;

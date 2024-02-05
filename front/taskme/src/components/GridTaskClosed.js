@@ -73,6 +73,9 @@ const GridTaskClosed = ({ taskClosed, setTaskClosed, setClosedOnEdit ,taskOnEdit
 
         setClosedOnEdit(null);
     };
+    // TODO: handle delete
+    // TODO: handle edit
+    // TODO: Colunas
 
     return (
         <Table>

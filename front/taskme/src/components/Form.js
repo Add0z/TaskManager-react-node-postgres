@@ -22,6 +22,14 @@ const InputArea = styled.div`
     `;
 
 const Input = styled.input`
+    width: 290px;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    height: 40px;
+    `;
+
+const InputDate = styled.input`
     width: 200px;
     padding: 0 10px;
     border: 1px solid #bbb;
