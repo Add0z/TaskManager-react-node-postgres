@@ -204,7 +204,6 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
 
     }
 
-    // TODO: check for more than 3 tasks in one name
 
     return (
      <>
