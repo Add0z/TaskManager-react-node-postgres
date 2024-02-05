@@ -65,47 +65,91 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
 
     const [options, setOptions] = useState([]);
 
-    const saveAfterDropdownChange = async (taskId,updateField) => {
-        await axios
-            .put("http://localhost:8800/m" + taskId, updateField)
-            .then(({ data }) => {
-                toast.success(data);
-            })
-            .catch(({ data }) => toast.error(data));
+            const noRepeatMembers = async (item, taskId, updateField) => {
 
-        setTaskOnEdit(null);
-    };
+                if (item["Support 1"].value === null){
+                    item["Support 1"].value = "Support nulo"
+                }
+                if (item["Trainee"].value === null){
+                    item["Trainee"].value = "Trainee nulo"
+                }
+                if (item["Task Lead"].value === null){
+                    item["Task Lead"].value = "Task Lead nulo"
+                }
 
-    const handleAvailableSupport = async (selectedOption,taskId) => {
+                console.log(item["Support 1"])
+                console.log(updateField[updateField["update-field"]] !== item["Support 1"])
 
-        let updateField = {
-            "update-field": "Support 1",
-            "Support 1": selectedOption.value
-        }
-        await saveAfterDropdownChange(taskId,updateField);
-    };
+                if (updateField[updateField["update-field"]] !== item["Support 1"] &&
+                    updateField[updateField["update-field"]] !== item["Trainee"] &&
+                    updateField[updateField["update-field"]] !== item["Task Lead"] &&
+                    item["Support 1"] !== item["Trainee"] &&
+                    item["Support 1"] !== item["Task Lead"] &&
+                    item["Trainee"] !== item["Task Lead"]) {
+                    await saveAfterDropdownChange(taskId, updateField);
+                } else {
+                    toast.error("Repeat members are not allowed");
+                }
+            };
+            const handleAvailableSupport = async (selectedOptionSupport, item) => {
+                var taskId = item["ID"]
 
-    const handleAvailableTRAINEE = async (selectedOption,taskId) => {
-        let updateField = {
-            "update-field": "Trainee",
-            "Trainee": selectedOption.value
-        }
-        await saveAfterDropdownChange(taskId,updateField);
-    };
+                if (selectedOptionSupport.value === "REMOVE"){
+                    selectedOptionSupport.value = null
+                }
+                let updateField = {
+                    "update-field": "Support 1",
+                    "Support 1": selectedOptionSupport.value
+                }
+                await noRepeatMembers(item,taskId, updateField);
+            };
 
-    const handleAvailableLEAD = async (selectedOption,taskId) => {
-        let updateField = {
-            "update-field": "Task Lead",
-            "Task Lead": selectedOption.value
-        }
-        await saveAfterDropdownChange(taskId,updateField);
-    };
+            const handleAvailableTRAINEE = async (selectedOptionTrainee, item) => {
+                var taskId = item["ID"]
+                if (selectedOptionTrainee.value === "REMOVE"){
+                    selectedOptionTrainee.value = null
+                }
+                let updateField = {
+                    "update-field": "Trainee",
+                    "Trainee": selectedOptionTrainee.value
+                }
+                await noRepeatMembers(item,taskId, updateField);
+            };
+
+            const handleAvailableLEAD = async (selectedOptionLead, item) => {
+                var taskId = item["ID"]
+                if (selectedOptionLead.value === "REMOVE"){
+                    selectedOptionLead.value = null
+                }
+                let updateField = {
+                    "update-field": "Task Lead",
+                    "Task Lead": selectedOptionLead.value
+                }
+                await noRepeatMembers(item,taskId, updateField);
+            };
+
+
+
+
+        const saveAfterDropdownChange = async (taskId,updateField) => {
+            await axios
+                .put("http://localhost:8800/m" + taskId, updateField)
+                .then(({ data }) => {
+                    toast.success(data);
+                })
+                .catch(({ data }) => toast.error(data));
+            fetchDropdownOptions();
+            setTaskOnEdit(null);
+        };
+
+
 
 
     const fetchDropdownOptions = async () => {
         try {
             const resTask = await axios.get("http://localhost:8800/m");
             const options = resTask.data.map((option) => option.name);
+             options.unshift("REMOVE");
             setOptions(options);
         } catch (error) {
             toast.error(error);
@@ -169,10 +213,10 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                  <Tr>
                      <Th width="15%" title={'Title'} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Title</Th>
                      <Th width="30%" onlyWeb style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Description</Th>
-                     <Th width="10%" title={'Priority'} alignCenter={"right"} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Priority</Th>
+                     <Th width="8%" title={'Priority'} alignCenter={"right"} style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Priority</Th>
                      <Th width="12%" style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Due Date</Th>
                      <Th width="13%" style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0}}>Task Lead   --- Support    ---  Trainee</Th>
-                     <Th width="8%" style={{ marginLeft: "30px", paddingLeft: "15px" }} >Status</Th>
+                     <Th width="13%" style={{ marginLeft: "30px", paddingLeft: "15px" }} >Status</Th>
                  </Tr>
              </Thead>
              <Tbody>
@@ -197,35 +241,35 @@ const GridTask = ({ task, setTask, setTaskOnEdit ,taskOnEdit}) => {
                                  {/*<label style={{marginRight: '10px'}}>Available</label>*/}
                                  <StyledDropdown
                                      options={Array.isArray(options) ? options : []}
-                                     onChange={(selectedOption) => handleAvailableLEAD(selectedOption, item["ID"])}
+                                     onChange={(selectedOptionLead) => handleAvailableLEAD(selectedOptionLead, item)}
                                      value={initialLead ? initialLead : null}
                                      priority={initialLead}
                                      placeholder="Task Lead"
                                  />
                                  <StyledDropdown
                                      options={Array.isArray(options) ? options : []}
-                                     onChange={(selectedOption) => handleAvailableSupport(selectedOption, item["ID"])}
+                                     onChange={(selectedOptionSupport) => handleAvailableSupport(selectedOptionSupport, item)}
                                      value={initialSupport ? initialSupport : null}
                                      priority={initialSupport}
                                      placeholder="Support"
                                  />
                                  <StyledDropdown
                                      options={Array.isArray(options) ? options : []}
-                                     onChange={(selectedOption) => handleAvailableTRAINEE(selectedOption, item["ID"])}
+                                     onChange={(selectedOptionTrainee) => handleAvailableTRAINEE(selectedOptionTrainee, item)}
                                      value={initialTrainee ? initialTrainee : null}
                                      priority={initialTrainee}
                                      placeholder="Trainee"
                                  />
                              </Td>
-                             <Td width="8%" style={{ paddingLeft: "20px" }}>{item.status}</Td>
+                             <Td  style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 0, paddingLeft: "20px" }}>{item.status}</Td>
 
-                             <Td alignCenter width="5%">
+                             <Td alignCenter width="2%">
                                  <FaEdit onClick={() => handleEdit(item)} />
                              </Td>
-                             <Td alignCenter width="5%">
+                             <Td alignCenter width="2%">
                                  <FaTrash onClick={() =>  handleDelete(item["ID"])} />
                              </Td>
-                             <Td alignCenter width="5%">
+                             <Td alignCenter width="2%">
                                  <FaCheck onClick={() => handleFinish(item["ID"])} />
                              </Td>
 

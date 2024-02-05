@@ -66,7 +66,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                     <Th>Nome</Th>
                     <Th>Email</Th>
                     <Th onlyWeb>Phone</Th>
-                    <Th></Th>
+                    <Th>Birthdate</Th>
                     <Th></Th>
                 </Tr>
             </Thead>
@@ -77,6 +77,8 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                         <Td width="30%">{item.email}</Td>
                         <Td width="20%" onlyWeb>
                             {item.phone}
+                        </Td>
+                        <Td width="20%">{new Date(item.birthdate).toLocaleDateString('en-GB')}
                         </Td>
                         <Td alignCenter width="5%">
                             <FaEdit onClick={() => handleEdit(item)} />

@@ -62,6 +62,7 @@ const Form = ({onEdit, setOnEdit, getUsers}) => {
             user.email.value = onEdit.email;
             user.phone.value = onEdit.phone;
             user.birthdate.value = onEdit.birthdate;
+
         }
     }, [onEdit]);
 
@@ -78,6 +79,8 @@ const Form = ({onEdit, setOnEdit, getUsers}) => {
             return toast.warn("Missing Fields");
 
         }
+        const formattedDate = new Date(user.birthdate.value).toISOString().split('T')[0];
+
 
         if (onEdit) {
                await axios
@@ -85,7 +88,7 @@ const Form = ({onEdit, setOnEdit, getUsers}) => {
                     name: user.name.value,
                     email: user.email.value,
                     phone: user.phone.value,
-                    birthdate: user.birthdate.value
+                    birthdate: formattedDate
                 })
                 .then(({ data }) => toast.success(data))
                 .catch(({ data }) => toast.error(data));

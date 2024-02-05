@@ -86,28 +86,36 @@ const GridTaskClosed = ({ taskClosed, setTaskClosed, setClosedOnEdit ,taskOnEdit
                     <Th alignCenter={"right"}>Priority</Th>
                     <Th>Due Date</Th>
                     <Th >Task Lead</Th>
-                    <Th></Th>
-                    <Th></Th>
+                    <Th>Status</Th>
+                    <Th>Created at</Th>
+                    <Th>Update at</Th>
                 </Tr>
             </Thead>
             <Tbody>
                 {taskClosed && taskClosed.map((item, i) => (
                     <Tr key={i}>
-                        <Td width="12%">{item.title}</Td>
-                        <Td width="15%" onlyWeb>
+                        <Td width="15%">{item.title}</Td>
+                        <Td width="30%" onlyWeb>
                             {item.description}
                         </Td>
-                        <Td width="6%">{item.priority}</Td>
-                        <Td width="9%">
+                        <Td width="10%">{item.priority}</Td>
+                        <Td width="10%">
                             {new Date(item.due_date).toLocaleDateString('en-GB')}
                         </Td>
-                        <Td width="9%">{item["Task Lead"]}</Td>
-                        <Td alignCenter width="3%">
-                            <FaEdit onClick={() => handleEdit(item)} />
+                        <Td width="8%">{item["Task Lead"]}</Td>
+                        <Td width="8%">{item.status}</Td>
+                        <Td width="8%">
+                            {new Date(item.created_at).toLocaleDateString('en-GB')}
                         </Td>
-                        <Td alignCenter width="3%">
-                            <FaTrash onClick={() => handleDelete(item.id)} />
+                        <Td width="8%">
+                            {new Date(item.updated_at).toLocaleDateString('en-GB')}
                         </Td>
+                        {/*<Td alignCenter width="3%">*/}
+                        {/*    <FaEdit onClick={() => handleEdit(item)} />*/}
+                        {/*</Td>*/}
+                        {/*<Td alignCenter width="3%">*/}
+                        {/*    <FaTrash onClick={() => handleDelete(item.id)} />*/}
+                        {/*</Td>*/}
                     </Tr>
                 ))}
             </Tbody>
