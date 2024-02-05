@@ -67,6 +67,7 @@ const GridTask = ({ task, setTask, setTaskOnEdit, taskClosed, setTaskClosed,getT
     const [options, setOptions] = useState([]);
 
             const noRepeatMembers = async (item, taskId, updateField) => {
+
                 if ((updateField[updateField["update-field"]] !== item["Support 1"] &&
                     updateField[updateField["update-field"]] !== item["Trainee"] &&
                     updateField[updateField["update-field"]] !== item["Task Lead"] )|| updateField[updateField["update-field"]] === null
@@ -75,7 +76,6 @@ const GridTask = ({ task, setTask, setTaskOnEdit, taskClosed, setTaskClosed,getT
                     await saveAfterDropdownChange(taskId, updateField);
                 } else {
                     toast.error("Repeat members are not allowed");
-                    console.log("item[updateField[update-field]]" +item[updateField["update-field"]])
 
                 }
             };
